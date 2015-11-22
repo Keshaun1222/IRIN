@@ -1,0 +1,2 @@
+<h1>Senator Registration Form</h1>
+<center><iframe src="http://spreadsheets.google.com/embeddedform?key=pgFye1QK1PVAHS7RCJqCoPA" width="530" height="595" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe></center>

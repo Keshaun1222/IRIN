@@ -1,0 +1,157 @@
+@font-face {
+    font-family: Electrolize;
+    src: url('../fonts/electrolize.eot');
+    src: local('Electrolize'), url('../fonts/electrolize.ttf') format('truetype');
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    background: #127ba6;
+}
+
+body {
+    /*background-image: url('http://nexus.eotir.com/public/style_images/xeriteq34/bg-top.png'), url('http://nexus.eotir.com/public/style_images/xeriteq34/bg-bot.png'), url('../img/IR_logo3.png'), url('../img/IR_logo3.png');
+    background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
+    background-position: top center, bottom center, center left, center right;*/
+    background-image: url('http://nexus.eotir.com/public/style_images/xeriteq34/bg-top.png'), url('http://nexus.eotir.com/public/style_images/xeriteq34/bg-bot.png');
+    background-repeat: no-repeat, no-repeat;
+    background-position: top center, bottom center;
+}
+
+/*@media (min-width: 768px) {
+    body {
+        background-image: url("../img/IR_logo3.png");
+        background-position: center;
+        background-repeat: repeat-x;
+    }
+}*/
+
+body > .container {
+    background-color: transparent;
+    height: 100%;
+    width: 50%;
+    padding: 0;
+}
+
+.container > h1 {
+    margin-top: 5%;
+}
+
+.container > .row:first-of-type {
+    background-color: #e5e5e5;
+    height: 70%;
+    margin: 0;
+    margin-top: 5%;
+    border: 1px solid #004080;
+}
+
+#sidebar {
+    height: 100%;
+    padding: 0;
+    background-color: #dddddd;
+    border-right: 1px solid black;
+    overflow: auto;
+    /*-ms-overflow-style: move;*/
+}
+
+#sidebar > div {
+    padding: 10px;
+}
+
+#top {
+    padding: 0 !important;
+    height: 26px;
+    background: url(http://nexus.eotir.com/public/style_images/xeriteq34/sidebar_bg.png) repeat-x top left;
+    border-bottom: 1px solid black;
+}
+
+#bottom {
+    padding: 0 !important;
+    height: 19px;
+    background: url(http://nexus.eotir.com/public/style_images/xeriteq34/sidebar_foot.png) repeat-x;
+}
+
+#pages {
+    min-height: 75%;
+    position: relative;
+}
+
+#pages > a {
+    position: relative;
+    bottom: 0;
+}
+
+#menu .panel {
+    border: none;
+    background: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+#menu .panel-heading {
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+#menu .panel-body {
+    border: none;
+}
+
+#blank {
+    height: 2%;
+    border-bottom: 1px solid black;
+}
+
+#session {
+    height: 10%;
+    margin-bottom: 5px;
+}
+
+#main {
+    max-height: 100%;
+    padding: 10px;
+    overflow: auto;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+#main h1 {
+    margin-bottom: 20px;
+}
+
+#footer {
+    width: 100%;
+    height: 35px;
+    color: #bebebe;
+    background: #000000 url(http://nexus.eotir.com/public/style_images/xeriteq34/nav_bg.png);
+    background-size: auto;
+    margin: 0;
+    padding: 10px;
+    font-size: 12px;
+}
+
+h1, h3 {
+    color: #004080;
+    text-align: center;
+    font-family: Electrolize, sans-serif;
+}
+
+.current {
+    /*color: #d69f00 !important;*/
+    font-weight: bolder;
+    text-decoration: underline;
+}
+
+.thumbnail {
+    background: none;
+    border: none;
+}
+
+.caption > h3 {
+    margin-top: 0;
+    margin-bottom: 0;
+}
