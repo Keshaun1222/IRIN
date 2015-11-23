@@ -16,12 +16,21 @@ if ($action == 'none') {
     <a onclick="load('awards', 'list', 'none', {})">View List of Awards</a><br />
     <?php
 } else if ($action == 'list') {
-    if ($do == 'none' || $do == 'ribbon') {
-        $awards = Award::getAllAwards();
-        $count = count($awards) + 30;
-        $current = 0;
-        $line = 0;
+    $awards = Award::getAllAwards();
+    $count = count($awards) + 30;
+    $current = 0;
+    $line = 0;
 
+    if ($do == 'none' || $do == 'ribbon') {
+        ?>
+        <center>
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-default">Ribbons</button>
+                <button type="button" class="btn btn-default" onclick="load('awards', 'list', 'medal', {})">Medals</button>
+            </div>
+        </center>
+        <br />
+        <?php
         foreach ($awards as $award) {
             if (Award::isMulti($award->getAward())) {
                 if ($award->getAward() == 40 || $award->getAward() == 41) {
@@ -162,6 +171,15 @@ if ($action == 'none') {
             }
         }
     } else if ($do == 'medal') {
+        ?>
+        <center>
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-default" onclick="load('awards', 'list', 'ribbon', {})">Ribbons</button>
+                <button type="button" class="btn btn-default">Medals</button>
+            </div>
+        </center>
+        <br />
+        <?php
         foreach ($awards as $award) {
             if (Award::isMulti($award->getAward())) {
                 if ($award->getAward() == 40 || $award->getAward() == 41) {
