@@ -1,5 +1,7 @@
 <?php
 
+include '../lib/path.php';
+
 /**
  * Created by PhpStorm.
  * User: Keshaun
