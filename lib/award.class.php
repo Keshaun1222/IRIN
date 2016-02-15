@@ -34,7 +34,7 @@ class Award {
         $this->max = $max;
         $this->ribbon = $awardLink . 'ribbons/' . $this->abbrev .'.gif';
         $this->medal = $awardLink . 'medals/' . $this->abbrev .'.jpg';
-        $this->division = new Division($division);
+//        $this->division = new Division($division);
     }
 
     /**

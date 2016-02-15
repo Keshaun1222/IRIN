@@ -362,7 +362,9 @@ if ($action == 'none') {
         $count = count($awards);
         $current = 0;
         $line = 0;
-
+        ?>
+        <h3><?php echo $user->getName() ?></h3>
+        <?php
         foreach($awards as $award) {
             if ($current == 0) {
                 ?>

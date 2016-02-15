@@ -1,15 +1,22 @@
 function load(page, action, doParam, params) {
-    var others = '';
-    for (var i in params) {
-        others += '&' + i + '=' + params[i];
-    }
+    var active = $("#lastactive").val();
 
-    $('#main').load(page + '.php?action=' + action + '&do=' + doParam + others);
-    /*$('#' + page + 'Collapse .panel-body').html('Action: ' + action);
-    $('.panel-collapse:not(#' + page + 'Collapse)').collapse('hide');
-    $('#' + page + 'Collapse').collapse('show');*/
-    $('.panel-heading:not(#' + page + ') a').removeClass('current');
-    $('#' + page + ' a').addClass('current');
+    if (active != '' && Math.floor(((new Date()).getTime() - active) / 3600000) >= 2) {
+        $('#main').load('logout.php?action=logout');
+    } else {
+        var others = '';
+        for (var i in params) {
+            others += '&' + i + '=' + params[i];
+        }
+
+        $('#main').load(page + '.php?action=' + action + '&do=' + doParam + others);
+        /*$('#' + page + 'Collapse .panel-body').html('Action: ' + action);
+         $('.panel-collapse:not(#' + page + 'Collapse)').collapse('hide');
+         $('#' + page + 'Collapse').collapse('show');*/
+        $('.panel-heading:not(#' + page + ') a').removeClass('current');
+        $('#' + page + ' a').addClass('current');
+        $('#lastactive').val((new Date()).getTime());
+    }
 }
 
 function changePassword() {
@@ -349,4 +356,6 @@ $(document).ready(function() {
         toggle: false
     });
     $('#home a').addClass('current');
+    console.log($('#lastactive').val());
+    //$('#lastactive').val((new Date()).getTime());
 });
