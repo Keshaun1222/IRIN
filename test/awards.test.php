@@ -1,6 +1,6 @@
 <?php
 
-include __DIR__ . '../lib/path.php';
+include __DIR__ . '/../lib/path.php';
 
 /**
  * Created by PhpStorm.
