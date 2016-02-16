@@ -1,7 +1,8 @@
 function load(page, action, doParam, params) {
     var active = $("#lastactive").val();
+    var now = (new Date()).getTime()
 
-    if (active != '' && Math.floor(((new Date()).getTime() - active) / 3600000) >= 2) {
+    if (active != '' && Math.floor((now - active) / 3600000) >= 2) {
         $('#main').load('logout.php?action=logout');
     } else {
         var others = '';
@@ -9,13 +10,19 @@ function load(page, action, doParam, params) {
             others += '&' + i + '=' + params[i];
         }
 
+        $.ajax({
+            type: "POST",
+            url: "setsession.php?time=" + now,
+            success: function() {}
+        });
+
         $('#main').load(page + '.php?action=' + action + '&do=' + doParam + others);
         /*$('#' + page + 'Collapse .panel-body').html('Action: ' + action);
          $('.panel-collapse:not(#' + page + 'Collapse)').collapse('hide');
          $('#' + page + 'Collapse').collapse('show');*/
         $('.panel-heading:not(#' + page + ') a').removeClass('current');
         $('#' + page + ' a').addClass('current');
-        $('#lastactive').val((new Date()).getTime());
+        $('#lastactive').val(now);
     }
 }
 
@@ -255,11 +262,14 @@ function editUser() {
 }
 
 function generateCode() {
+    var purpose = $("#purpose").val();
     $.ajax({
         type: "POST",
         url: "codegen.php?action=generate&do=none",
+        data: "purpose=" + purpose,
         success: function(html) {
-            $("#code").html(html);
+            //$("#code").html(html);
+            load('codegen', 'none', 'none', {});
         }
     });
 }
@@ -356,6 +366,5 @@ $(document).ready(function() {
         toggle: false
     });
     $('#home a').addClass('current');
-    console.log($('#lastactive').val());
     //$('#lastactive').val((new Date()).getTime());
 });

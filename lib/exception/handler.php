@@ -70,3 +70,78 @@
         </table>
 <?php
     }
+
+function fatal_handler() {
+    $errfile = "unknown file";
+    $errstr  = "shutdown";
+    $errno   = E_CORE_ERROR;
+    $errline = 0;
+
+    $error = error_get_last();
+
+    if( $error !== NULL) {
+        $errno   = $error["type"];
+        $errfile = $error["file"];
+        $errline = $error["line"];
+        $errstr  = $error["message"];
+
+        $trace = print_r( debug_backtrace( false ), true );
+
+        $content = "
+  <table>
+  <thead><th>Item</th><th>Description</th></thead>
+  <tbody>
+  <tr>
+    <th>User</th>
+    <td><pre>{$_SESSION['user']->getName()}</pre></td>
+  </tr>
+  <tr>
+    <th>Error</th>
+    <td><pre>$errstr</pre></td>
+  </tr>
+  <tr>
+    <th>Errno</th>
+    <td><pre>$errno</pre></td>
+  </tr>
+  <tr>
+    <th>File</th>
+    <td>$errfile</td>
+  </tr>
+  <tr>
+    <th>Line</th>
+    <td>$errline</td>
+  </tr>
+  <tr>
+    <th>Trace</th>
+    <td><pre>$trace</pre></td>
+  </tr>
+  </tbody>
+  </table>";
+
+        $to = "keshaun@eotir.com";
+        $subject = "Fatal Error";
+        $headers = "MIME-Version: 1.0" . "\r\n";
+        $headers .= "Content-type: text/html; charset=iso-8859-1" . "\r\n";
+        $headers .= "From: Error Handler <errors@eotir.com>" . "\r\n";
+        mail($to, $subject, $content, $headers);
+
+        //error_mail(format_error($errno, $errstr, $errfile, $errline));
+    }
+}
+
+function format_error( $errno, $errstr, $errfile, $errline ) {
+
+
+    return $content;
+}
+
+function error_mail($content) {
+    $date = date("Y-m-d H:i:s");
+    $tz = date("(T)");
+    $to = "keshaun@eotir.com";
+    $subject = "Fatal Error";
+    $headers = "MIME-Version: 1.0" . "\r\n";
+    $headers .= "Content-type: text/html; charset=iso-8859-1" . "\r\n";
+    $headers .= "From: Error Handler <errors@eotir.com>" . "\r\n";
+    mail($to, $subject, $content, $headers);
+}

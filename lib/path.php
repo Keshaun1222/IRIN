@@ -11,6 +11,7 @@ require_once ROOT . '/lib/db.php';
 require_once ROOT . '/lib/admin.class.php';
 require_once ROOT . '/lib/award.class.php';
 require_once ROOT . '/lib/clearance.class.php';
+require_once ROOT . '/lib/codegen.class.php';
 require_once ROOT . '/lib/devworklog.class.php';
 require_once ROOT . '/lib/division.class.php';
 require_once ROOT . '/lib/document.class.php';
@@ -39,6 +40,7 @@ if ($dev) {
 }
 
 set_exception_handler('exception_handler');
+register_shutdown_function("fatal_handler");
 if ($dev) {
     error_reporting(E_ALL & ~E_NOTICE);
 } else {

@@ -278,7 +278,7 @@
             $subject = addslashes(stripslashes(stripslashes($subject)));
             $body = addslashes(stripslashes(strip_tags($text)));
 
-            $update = $mysqli->query("UPDATE documents SET subject = '$subject', status = $status, text = '$body', assignees = '$assignees', date = NOW(), clearance = $clearance, prefix = $prefix WHERE id = {$this->id}");
+            $update = $mysqli->query("UPDATE documents SET subject = '$subject', status = $status, text = '$body', assignees = '$assignees', clearance = $clearance, prefix = $prefix WHERE id = {$this->id}");
             if (!$update) {
                 throw new DBException('Could not update document/order.', $mysqli->error);
             }
