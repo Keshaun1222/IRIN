@@ -51,6 +51,9 @@ if ($action == 'none') {
             $document = new Document($_GET['id']);
             ?>
             <tr>
+                <td><span><a onclick="load('documents', 'view', 'none', {})">View Documents/Orders</a></span><span class="pull-right"><a onclick="load('documents', 'search', 'none', {})">Search Documents/Orders</a></span></td>
+            </tr>
+            <tr>
                 <td>
                     <b>Message ID:</b> <?php echo $document->getPrefix()->getPrefixAbbrev() . $document->getID() ?> |
                     <b>Title:</b> <?php echo $document->getTitle() ?><br />
