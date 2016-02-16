@@ -392,4 +392,130 @@ if ($action == 'none') {
             }
         }
     }
+} else if ($action == 'edit') {
+    $user = new User($_GET['id']);
+    if ($do == 'none') {
+        ?>
+        <form action="#" method="post" id="form">
+            <table>
+                <?php
+                foreach (Award::getAll() as $award) {
+                    ?>
+                    <tr>
+                        <td>
+                            <?php
+                            if (Award::hasAward($user, $award)) {
+                                ?>
+                                <input type="checkbox" class="awards" name="awards[]" id="<?php echo strtolower($award->getAbbrev()) ?>" value=<?php echo $award->getAward() ?> checked />
+                                <?php
+                            } else {
+                                ?>
+                                <input type="checkbox" class="awards" name="awards[]" id="<?php echo strtolower($award->getAbbrev()) ?>" value=<?php echo $award->getAward() ?> />
+                                <?php
+                            }
+                            ?>
+                            &nbsp;
+                        </td>
+                        <td>
+                            <label for="<?php echo strtolower($award->getAbbrev()) ?>"><?php echo $award->getName() ?></label>
+                        </td>
+                        <td>
+                            <?php
+                            if (Award::isMulti($award->getAward())) {
+                                ?>
+                                <select name="<?php echo strtolower($award->getAbbrev()) ?>Multi">
+                                    <?php
+                                    if ($award->getAward() == 40 || $award->getAward() == 41) {
+                                        $new = new Award($award->getAward(), 'Half');
+                                        if (Award::hasAward($user, $new, true)) {
+                                            ?>
+                                            <option value="Half" selected>Half</option>
+                                            <?php
+                                        } else {
+                                            ?>
+                                            <option value="Half">Half</option>
+                                            <?php
+                                        }
+                                        for ($i = 1; $i <= 8; $i++) {
+                                            $new = new Award($award->getAward(), $i);
+                                            if (Award::hasAward($user, $new, true)) {
+                                                ?>
+                                                <option value="<?php echo $i ?>" selected><?php echo $i ?></option>
+                                                <?php
+                                            } else {
+                                                ?>
+                                                <option value="<?php echo $i ?>"><?php echo $i ?></option>
+                                                <?php
+                                            }
+                                        }
+                                    } else if ($award->getAward() == 42 || $award->getAward() == 43) {
+                                        for ($i = 3; $i <= 24; $i *= 2) {
+                                            $new = new Award($award->getAward(), $i);
+                                            if (Award::hasAward($user, $new, true)) {
+                                                ?>
+                                                <option value="<?php echo $i ?>" selected><?php echo $i ?></option>
+                                                <?php
+                                            } else {
+                                                ?>
+                                                <option value="<?php echo $i ?>"><?php echo $i ?></option>
+                                                <?php
+                                            }
+                                        }
+                                    } else if ($award->getAward() == 36 || $award->getAward() == 39) {
+                                        for ($i = 1; $i <= 5; $i++) {
+                                            $new = new Award($award->getAward(), $i);
+                                            if (Award::hasAward($user, $new, true)) {
+                                                ?>
+                                                <option value="<?php echo $i ?>" selected><?php echo $i ?></option>
+                                                <?php
+                                            } else {
+                                                ?>
+                                                <option value="<?php echo $i ?>"><?php echo $i ?></option>
+                                                <?php
+                                            }
+                                        }
+                                    }
+                                    ?>
+                                </select>
+                                <?php
+                            }
+                            ?>
+                        </td>
+                    </tr>
+                    <?php
+                }
+                ?>
+                <tr>
+                    <td></td>
+                    <td><button id="edit" name="edit" class="btn btn-primary" type="button" onclick="editAwards(<?php echo $user->getID() ?>)">Edit</button></td>
+                    <td></td>
+                </tr>
+            </table>
+        </form>
+        <div id="test"></div>
+        <?php
+    } else if ($do == 'edit') {
+        //var_dump($_POST);
+        extract($_POST);
+
+        $awardlist = '';
+        $multi = '';
+
+        for($i = 0; $i < count($awards); $i++) {
+            $awardlist .= $awards[$i];
+            if ($i < count($awards) - 1) {
+                $awardlist .= ',';
+            }
+
+            if (Award::isMulti($awards[$i])) {
+                $award = new Award($awards[$i], NULL, false);
+                $multiName = strtolower($award->getAbbrev()) . 'Multi';
+                $multi .= $$multiName . ',';
+            }
+        }
+
+        $multi = rtrim($multi, ',');
+
+        Award::updateUserAwards($user, $awardlist, $multi);
+    }
 }

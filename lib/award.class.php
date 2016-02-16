@@ -8,7 +8,7 @@ class Award {
     private $max;
     private $division;
 
-    public function __construct($id, $num = NULL) {
+    public function __construct($id, $num = NULL, $full = true) {
         global $mysqli;
         global $awardLink;
 
@@ -22,12 +22,14 @@ class Award {
 
         if ($multi == 1) {
             if ($num == NULL) $num = 1;
-            if ($num <= $max || $num == "Half") {
-                $this->name .= ' x' . $num;
-                $this->abbrev .= '-' . $num;
-            } else {
-                $this->name .= ' x' . $max;
-                $this->abbrev .= '-' . $max;
+            if ($full) {
+                if ($num <= $max || $num == "Half") {
+                    $this->name .= ' x' . $num;
+                    $this->abbrev .= '-' . $num;
+                } else {
+                    $this->name .= ' x' . $max;
+                    $this->abbrev .= '-' . $max;
+                }
             }
         }
 
@@ -48,6 +50,19 @@ class Award {
         $query = $mysqli->query("SELECT * FROM awardslist");
         while ($result = $query->fetch_array()) {
             $awards[] = new self($result['id']);
+        }
+
+        return $awards;
+    }
+
+    public static function getAll() {
+        global $mysqli;
+
+        $awards = array();
+
+        $query = $mysqli->query("SELECT * FROM awardslist");
+        while ($result = $query->fetch_array()) {
+            $awards[] = new self($result['id'], NULL, false);
         }
 
         return $awards;
@@ -84,6 +99,19 @@ class Award {
         }
 
         return $list;
+    }
+
+    public static function hasAward(User $user, Award $award, $exact = false) {
+        foreach ($user->getAwards() as $test) {
+            if ($exact) {
+                if ($test == $award)
+                    return true;
+            } else {
+                if ($test->isSame($award))
+                    return true;
+            }
+        }
+        return false;
     }
 
     public static function isMulti($award) {
@@ -132,5 +160,11 @@ class Award {
 
     public function getDivision() {
         return $this->division;
+    }
+
+    public function isSame(Award $award) {
+        if ($this->id == $award->getAward())
+            return true;
+        return false;
     }
 }
