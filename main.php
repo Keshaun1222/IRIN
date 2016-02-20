@@ -18,7 +18,7 @@ $pages = Page::getPages($_SESSION['user']);
 </head>
 <body>
     <div class="container">
-        <input type="hidden" id="lastactive" name="lastactive" value="<?php echo $_SESSION['lastactive'] ?>" />
+        <input type="hidden" id="lastactive" name="lastactive" value="<?php if (isset($_SESSION['lastactive'])) echo $_SESSION['lastactive'] ?>" />
         <h1>Imperial Republic Information Network</h1>
         <div class="row">
             <div id="sidebar" class="col-md-3">

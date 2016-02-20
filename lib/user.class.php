@@ -12,8 +12,8 @@
         private $sc;
         private $admin = false;
         private $awards = array();
-        private $nominator = false;
-        private $approver = false;
+        /*private $nominator = false;
+        private $approver = false;*/
 
         /**
          * The Constructor for the User class. Queries the database and assigns values to the approriate variables.
@@ -47,10 +47,10 @@
                 $this->admin = new Admin($id);
             }
 
-            if ($nominator == 1)
+            /*if ($nominator == 1)
                 $this->nominator = true;
             if ($approver == 1)
-                $this->approver = true;
+                $this->approver = true;*/
 
             $this->awards = Award::getUserAwards($this);
 
@@ -79,8 +79,17 @@
                 return false;
             } else {
                 $result = $query->fetch_array();
+                User::lastLogin($result['id']);
                 return new self($result['id']);
             }
+        }
+
+        public static function lastLogin($id) {
+            global $mysqli;
+
+            $ip = $_SERVER['REMOTE_ADDR'];
+            $date = date("Y-m-d H:i:s");
+            $update = $mysqli->query("UPDATE users SET lastlogin = '$date', ip = '$ip' WHERE id = $id");
         }
 
         public static function getUserByUsername($username) {
@@ -274,13 +283,13 @@
             return $this->awards;
         }
 
-        public function getNominator() {
+        /*public function getNominator() {
             return $this->nominator;
         }
 
         public function getApprover() {
             return $this->approver;
-        }
+        }*/
 
         public function isThrone() {
             if ($this->sc->getClearance() >= 5 && $this->division->getDivision() == 6) {

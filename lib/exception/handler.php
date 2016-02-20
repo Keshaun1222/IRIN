@@ -72,6 +72,8 @@
     }
 
 function fatal_handler() {
+    global $mysqli;
+
     $errfile = "unknown file";
     $errstr  = "shutdown";
     $errno   = E_CORE_ERROR;
@@ -84,8 +86,18 @@ function fatal_handler() {
         $errfile = $error["file"];
         $errline = $error["line"];
         $errstr  = $error["message"];
+        $date = date("Y-m-d H:i:s");
+
+        $mess = $mysqli->real_escape_string($errstr);
+
+        $mysqli->query("INSERT INTO errors VALUES (NULL, '$mess', 3, '$date')");
 
         $trace = print_r( debug_backtrace( false ), true );
+
+        $errorNo = $mysqli->insert_id;
+        $file = $mysqli->real_escape_string($errfile);
+        $line = $errline;
+        $mysqli->query("INSERT INTO stacktrace VALUES ($errorNo, '$file', $line, NULL, NULL, NULL)");
 
         $content = "
   <table>

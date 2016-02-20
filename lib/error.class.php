@@ -69,8 +69,10 @@
         public function getType() {
             if ($this->type == 1) {
                 return 'DBException';
-            } else {
+            } else if ($this->type == 2) {
                 return 'IRINException';
+            } else {
+                return 'FatalError';
             }
         }
 
