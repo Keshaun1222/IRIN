@@ -233,6 +233,26 @@ if ($action == 'none') {
     } else if ($do == 'edit') {
         extract($_POST);
         $document = new Document($_GET['id']);
+
+        /* Mail the new assignees */
+        $ids = explode(',', $assignees);
+        $users = array();
+        for ($i = 0; $i < count($ids); $i++) {
+            $users[] = new User($ids[$i]);
+        }
+
+        $message = 'You have been assigned to document <b>' . $document->getPrefix()->getPrefixAbbrev() . $document->getID() . '</b>';
+        $subject = 'Document Assignment';
+        $headers = "MIME-Version: 1.0" . "\r\n";
+        $headers .= "Content-type: text/html; charset=iso-8859-1" . "\r\n";
+        $headers .= "From: IR Information Network <irin@eotir.com>" . "\r\n";
+        foreach($users as $user) {
+            if (!in_array($user, $document->getAssignees())) {
+                $to = $user->getEmail();
+                mail($to, $subject, $message, $headers);
+            }
+        }
+
         $document->update($subject, $status, $body, $clearance, $prefix, $assignees);
         echo $document->getID();
     }
@@ -341,6 +361,27 @@ if ($action == 'none') {
     } else if ($do == 'create') {
         extract($_POST);
         $document = Document::create($subject, $body, $clearance, $prefix, $_SESSION['user']->getID(), $assignees);
+
+        /* Mail the new assignees */
+        $ids = explode(',', $assignees);
+        $users = array();
+        for ($i = 0; $i < count($ids); $i++) {
+            $users[] = new User($ids[$i]);
+        }
+
+        $message = 'You have been assigned to document <b>' . $document->getPrefix()->getPrefixAbbrev() . $document->getID() . '</b> by <b><i>' . $_SESSION['user']->getName() . '</i></b><br />';
+        $message .= 'Login to <a href="http://irin.eotir.com">IRIN</a> to look at the document.';
+        $subject = 'Document Assignment';
+        $headers = "MIME-Version: 1.0" . "\r\n";
+        $headers .= "Content-type: text/html; charset=iso-8859-1" . "\r\n";
+        $headers .= "From: IR Information Network <irin@eotir.com>" . "\r\n";
+        foreach($users as $user) {
+            if (!in_array($user, $document->getAssignees())) {
+                $to = $user->getEmail();
+                mail($to, $subject, $message, $headers);
+            }
+        }
+
         echo $document->getID();
     }
 } else if ($action == 'delete') {

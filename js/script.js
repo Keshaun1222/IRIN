@@ -1,6 +1,6 @@
 function load(page, action, doParam, params) {
     var active = $("#lastactive").val();
-    var now = (new Date()).getTime()
+    var now = (new Date()).getTime();
 
     if (active != '' && Math.floor((now - active) / 3600000) >= 2) {
         $('#main').load('logout.php?action=logout');
