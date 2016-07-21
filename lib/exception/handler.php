@@ -99,13 +99,18 @@ function fatal_handler() {
         $line = $errline;
         $mysqli->query("INSERT INTO stacktrace VALUES ($errorNo, '$file', $line, NULL, NULL, NULL)");
 
+        if (isset($_SESSION['user'])) {
+            $username = $_SESSION['user']->getName();
+        } else {
+            $username = "N/a";
+        }
         $content = "
   <table>
   <thead><th>Item</th><th>Description</th></thead>
   <tbody>
   <tr>
     <th>User</th>
-    <td><pre>{$_SESSION['user']->getName()}</pre></td>
+    <td><pre>$username</pre></td>
   </tr>
   <tr>
     <th>Error</th>
