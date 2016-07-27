@@ -164,6 +164,7 @@ if ($action == 'none') {
                 $div = 1;
                 break;
         }
+        Event::addEvent($name . '\'s account has been modified.', $_SESSION['user'], 2);
         $user->update($login, $email, $division, $clearance, $name, $rank, $div, $subdiv);
     } else if ($do == 'resetpass') {
         $pass = User::createPassword();
@@ -183,6 +184,7 @@ if ($action == 'none') {
             load('users', 'none', 'none', {});
         </script>
         <?php
+        Event::addEvent($name . '\'s password has been reset.', $_SESSION['user'], 2);
     }
 } else if ($action == 'delete') {
     if ($do == 'none') {
@@ -207,6 +209,7 @@ if ($action == 'none') {
             load('users', 'none', 'none', {});
         </script>
         <?php
+        Event::addEvent($name . '\'s account has been deleted.', $_SESSION['user'], 3);
     }
 } else if ($action == 'new') {
     if ($do == 'none') {
@@ -293,6 +296,7 @@ if ($action == 'none') {
             mail($to, $subject, $message, $headers);
 
             echo 'true';
+            Event::addEvent($name . '\'s account has been created.', $_SESSION['user'], 1);
         }
     }
 } else if ($action == 'switch') {
