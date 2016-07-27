@@ -32,7 +32,7 @@
         }
 
         /**
-         * @param bool|false $type
+         * @param int|false $type
          * @return Error[]
          */
         public static function getErrors($type = false) {
