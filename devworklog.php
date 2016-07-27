@@ -32,9 +32,11 @@ if ($action == 'none') {
 
         echo '<br /><br />';
     }
-    ?>
-    <center><a onclick="load('devworklog', 'new', 'none', {})">Create New PCR</a></center>
-    <?php
+    if ($_SESSION['user']->getAdmin()->getAdminLevel() == 3) {
+        ?>
+        <center><a onclick="load('devworklog', 'new', 'none', {})">Create New PCR</a></center>
+        <?php
+    }
 } else if ($action == 'new') {
     if ($do == 'none') {
         $worklog = DevWorklog::getLatestWorklog();
