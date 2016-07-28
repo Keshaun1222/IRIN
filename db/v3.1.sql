@@ -120,6 +120,8 @@ INSERT INTO `awardslist` (`id`, `name`, `abbrev`, `multi`, `max`) VALUES
 (43, 'COMPNOR Service Medal', 'CSM', 1, 24),
 (44, 'Citizenship Award', 'IRCA', 0, NULL);
 
+INSERT INTO pages VALUES (14, 'Awards Tracker', 'Awards Tracker', 'awards', 'Awards Tracker', 0, 0, 0);
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

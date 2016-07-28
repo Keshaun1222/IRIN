@@ -341,7 +341,7 @@ if ($action == 'none') {
                     <td>
                         <a onclick="load('awards', 'view', 'view', {id:'<?php echo $user->getID() ?>'})">View</a>
                         <?php
-                        if ($_SESSION['user']->getApprover() || $_SESSION['user']->getNominator() || $_SESSION['user']->getAdmin()) {
+                        if ($_SESSION['user']->isThrone() || $_SESSION['user']->getAdmin()) {
                             ?>
                              || <a onclick="load('awards', 'edit', 'none', {id:'<?php echo $user->getID() ?>'})">Edit</a>
                             <?php
