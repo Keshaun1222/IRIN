@@ -66,7 +66,7 @@
          * Login to IRIN. If the user provides an invalid username/password combination, the function returns false. Otherwise, it returns an user object.
          * @param string $user
          * @param string $password
-         * @return boolean|Users
+         * @return boolean|User
          */
         public static function login($user, $password) {
             global $mysqli;

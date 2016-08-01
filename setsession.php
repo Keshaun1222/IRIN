@@ -7,7 +7,7 @@ if (!isset($_SESSION['user'])) {
         //setcookie('page', $_GET['page'], time() + 60*30);
         echo 'false';
     } else {
-        $_SESSION['user'] = $_COOKIE['user'];
+        $_SESSION['user'] = User::getUserByUsername($_COOKIE['user']);
         echo 'true';
     }
 } else {
