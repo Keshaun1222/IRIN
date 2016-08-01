@@ -6,3 +6,5 @@
 *.iws
 
 lib/config.php
+
+composer.phar

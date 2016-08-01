@@ -18,7 +18,7 @@
             $message .= '<b>Error Message:</b> ' . $exception->getSendMessage() . '<br />';
             $message .= '<b>Time:</b> ' . $date . ' ' . $tz . '<br />';
             $message .= 'Please fix this error ASAP.';
-        } else {
+        } else if ($type == 'IRINException') {
             echo '<span style="color:orange">' . $exception->getMessage() . '</span><br />';
             $t = 2;
             $subject = 'IRIN Error';
@@ -26,6 +26,13 @@
             $message .= '<b>Displayed Message:</b> ' . $exception->getSendMessage() . '<br />';
             $message .= '<b>Time:</b> ' . $date . ' ' . $tz . '<br />';
             $message .= 'Notify the Assistant and Lead Administrators immediately.';
+        } else {
+            $t = 4;
+            $subject = 'Mail Error';
+            $message = 'There was a problem with the sending mail via SMTP.<br /><br />';
+            $message .= '<b>Displayed Message:</b> ' . $exception->getSendMessage() . '<br />';
+            $message .= '<b>Time:</b> ' . $date . ' ' . $tz . '<br />';
+            $message .= 'Please fix this error ASAP.';
         }
 
         mail($to, $subject, $message, $headers);

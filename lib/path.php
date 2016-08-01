@@ -7,6 +7,9 @@ require_once ROOT . '/lib/config.php';
 /* Include DB File */
 require_once ROOT . '/lib/db.php';
 
+/* Include Mail File */
+require_once ROOT . '/lib/mail.php';
+
 /* Include Class Files */
 require_once ROOT . '/lib/admin.class.php';
 require_once ROOT . '/lib/award.class.php';
@@ -25,9 +28,13 @@ require_once ROOT . '/lib/user.class.php';
 require_once ROOT . '/lib/version.class.php';
 require_once ROOT . '/lib/year.class.php';
 
+/*Include Composer Autoloader */
+require_once ROOT . '/vendor/autoload.php';
+
 /* Include Exception Files */
 require_once ROOT . '/lib/exception/dbException.php';
 require_once ROOT . '/lib/exception/irinException.php';
+require_once ROOT . 'lib/exception/mailException.php';
 
 /* Include Procedureal Files */
 require_once ROOT . '/lib/param.php';
@@ -40,6 +47,7 @@ if ($dev) {
     $awardLink = 'http://eotir.com/awards/';
 }
 
+/* Other Setup */
 set_exception_handler('exception_handler');
 register_shutdown_function("fatal_handler");
 if ($dev) {
@@ -48,3 +56,12 @@ if ($dev) {
     error_reporting(E_ERROR);
 }
 session_start();
+
+$mail->setFrom('test@eotir.com', 'Testing');
+$mail->addAddress('keshaun@eotir.com');
+$mail->Subject = 'Testing';
+$mail->Body = 'Testing Testing 1 2 3';
+
+if (!$mail->send()) {
+    throw new MailException($mail->ErrorInfo);
+}

@@ -71,8 +71,10 @@
                 return 'DBException';
             } else if ($this->type == 2) {
                 return 'IRINException';
-            } else {
+            } else if ($this->type == 3) {
                 return 'FatalError';
+            } else {
+                return 'MailException';
             }
         }
 
