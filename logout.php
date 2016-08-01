@@ -24,6 +24,7 @@ if ($action == 'none') {
     }
 } else if ($action == 'logout') {
     session_destroy();
+    setcookie('user', null, time() - 60*60);
     ?>
     <script>
         window.location = 'index.php';
