@@ -7,7 +7,7 @@ if (isset($_POST['submit'])) {
 $user = User::login($_POST['username'], $_POST['password']);
 
 if ($user) {
-    setcookie('name', $user, time() + 60*60*24*30);
+    setcookie('user', $user, time() + 60*60*24*30);
     $_SESSION['user'] = $user;
     echo 'true';
 } else {
