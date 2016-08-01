@@ -57,11 +57,11 @@ if ($dev) {
 }
 session_start();
 
-$mail->setFrom('test@eotir.com', 'Testing');
+/*$mail->setFrom('test@keshaun.net', 'Testing');
 $mail->addAddress('keshaun@eotir.com');
 $mail->Subject = 'Testing';
 $mail->Body = 'Testing Testing 1 2 3';
 
 if (!$mail->send()) {
     throw new MailException($mail->ErrorInfo);
-}
+}*/

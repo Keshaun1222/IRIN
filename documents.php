@@ -25,6 +25,7 @@ if ($action == 'none') {
                 <th>Title</th>
                 <th>Author</th>
                 <th>Date</th>
+                <th>Clearance</th>
                 <th>Status</th>
             </tr>
             <?php
@@ -35,6 +36,7 @@ if ($action == 'none') {
                     <td><?php echo $document->getTitle() ?></td>
                     <td><?php echo $document->getCreator()->getName() ?></td>
                     <td><?php echo $document->getDate() ?></td>
+                    <td><?php echo $document->getClearance()->getClearanceName() ?></td>
                     <td><?php echo $document->getStatus()->getType() ?></td>
                 </tr>
                 <?php
@@ -64,6 +66,7 @@ if ($action == 'none') {
             <tr>
                 <td>
                     <b>Status:</b> <?php echo $document->getStatus()->getType() ?> ||
+                    <b>Minimum Security Clearance:</b> <?php echo $document->getClearance()->getClearanceName() ?><br />
                     <b>Signed By:</b>
                     <?php
                     $signers = array();

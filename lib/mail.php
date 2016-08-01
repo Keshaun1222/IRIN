@@ -1,8 +1,8 @@
 <?php
 $mail = new PHPMailer();
 
-if ($dev)
-    $mail->SMTPDebug = 3;
+/*if ($dev)
+    $mail->SMTPDebug = 3;*/
 
 $mail->isSMTP();
 $mail->Host = $smtphost;
