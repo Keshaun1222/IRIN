@@ -5,7 +5,7 @@ $do = param('do', 'none');
 
 echo '<h1>Event Logger</h1>';
 if ($action == 'none') {
-    $types = array('Addition Event', 'Change Event', 'Deletion Event');
+    $types = array('Addition Event', 'Change Event', 'Deletion Event', 'Other Events');
 
     for ($i = 0; $i < count($types); $i++) {
         ?>

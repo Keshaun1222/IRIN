@@ -13,6 +13,7 @@ $pages = Page::getPages($_SESSION['user']);
     <link href="css/bootstrap.min.css" type="text/css" rel="stylesheet" />
     <link href="css/style.css" type="text/css" rel="stylesheet" />
     <script src="js/jquery.min.js" type="text/javascript"></script>
+    <script src="js/jquery.cookie.js" type="text/javascript"></script>
     <script src="js/bootstrap.min.js" type="text/javascript"></script>
     <script src="js/script.js" type="text/javascript"></script>
 </head>

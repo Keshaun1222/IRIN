@@ -16,6 +16,7 @@ if ($down) {
         <link href="css/cover.css" type="text/css" rel="stylesheet" />
         <link href="css/signin.css" type="text/css" rel="stylesheet" />
         <script src="js/jquery.min.js" type="text/javascript"></script>
+        <script src="js/jquery.cookie.js" type="text/javascript"></script>
         <script src="js/bootstrap.min.js" type="text/javascript"></script>
         <script src="js/login.js" type="text/javascript"></script>
     </head>

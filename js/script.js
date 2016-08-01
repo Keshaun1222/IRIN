@@ -1,10 +1,10 @@
 function load(page, action, doParam, params) {
-    var active = $("#lastactive").val();
-    var now = (new Date()).getTime();
+    //var active = $("#lastactive").val();
+    //var now = (new Date()).getTime();
 
-    if (active != '' && Math.floor((now - active) / 3600000) >= 2) {
+    /*if (active != '' && Math.floor((now - active) / 3600000) >= 2) {
         $('#main').load('logout.php?action=logout');
-    } else {
+    } else {*/
         var others = '';
         for (var i in params) {
             others += '&' + i + '=' + params[i];
@@ -12,8 +12,16 @@ function load(page, action, doParam, params) {
 
         $.ajax({
             type: "POST",
-            url: "setsession.php?time=" + now,
-            success: function() {}
+            //url: "setsession.php?page=" + page,
+            url: "setsession.php",
+            success: function(html) {
+                if (html == 'false') {
+                    $.cookie('page', page);
+                    $('#main').load('logout.php?action=logout');
+                } else {
+                    $.removeCookie('page');
+                }
+            }
         });
 
         $('#main').load(page + '.php?action=' + action + '&do=' + doParam + others);
@@ -22,8 +30,8 @@ function load(page, action, doParam, params) {
          $('#' + page + 'Collapse').collapse('show');*/
         $('.panel-heading:not(#' + page + ') a').removeClass('current');
         $('#' + page + ' a').addClass('current');
-        $('#lastactive').val(now);
-    }
+        //$('#lastactive').val(now);
+    /*}*/
 }
 
 function changePassword() {
@@ -392,7 +400,12 @@ function disableCheckBox() {
 }
 
 $(document).ready(function() {
-    $('#main').load('home.php');
+    var page = $.cookie('page');
+    if (page == null) {
+        $('#main').load('home.php');
+    } else {
+        $('#main').load(page + '.php');
+    }
     $('.panel-collapse').collapse({
         toggle: false
     });
