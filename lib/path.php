@@ -4,6 +4,9 @@ define('ROOT', realpath(__DIR__ . '/../'));
 /* Include Config File */
 require_once ROOT . '/lib/config.php';
 
+/*Include Composer Autoloader */
+require_once ROOT . '/vendor/autoload.php';
+
 /* Include DB File */
 require_once ROOT . '/lib/db.php';
 
@@ -27,9 +30,6 @@ require_once ROOT . '/lib/rank.class.php';
 require_once ROOT . '/lib/user.class.php';
 require_once ROOT . '/lib/version.class.php';
 require_once ROOT . '/lib/year.class.php';
-
-/*Include Composer Autoloader */
-require_once ROOT . '/vendor/autoload.php';
 
 /* Include Exception Files */
 require_once ROOT . '/lib/exception/dbException.php';
