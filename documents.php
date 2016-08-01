@@ -43,7 +43,7 @@ if ($action == 'none') {
             }
             ?>
             <tr>
-                <td colspan="5" style="text-align: center"><a onclick="load('documents', 'new', 'none', {})">New Document/Order</a> </td>
+                <td colspan="6" style="text-align: center"><a onclick="load('documents', 'new', 'none', {})">New Document/Order</a> </td>
             </tr>
             <?php
         } else if (isset($_GET['id'])) {
