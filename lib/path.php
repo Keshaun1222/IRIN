@@ -34,7 +34,7 @@ require_once ROOT . '/lib/year.class.php';
 /* Include Exception Files */
 require_once ROOT . '/lib/exception/dbException.php';
 require_once ROOT . '/lib/exception/irinException.php';
-require_once ROOT . 'lib/exception/mailException.php';
+require_once ROOT . '/lib/exception/mailException.php';
 
 /* Include Procedureal Files */
 require_once ROOT . '/lib/param.php';
