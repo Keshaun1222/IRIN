@@ -57,7 +57,7 @@ if ($dev) {
 }
 session_start();
 
-$mail->setFrom('test@keshaun.net', 'Testing');
+$mail->setFrom('test@eotir.com', 'Testing');
 $mail->addAddress('keshaun@eotir.com');
 $mail->Subject = 'Testing';
 $mail->Body = 'Testing Testing 1 2 3';
