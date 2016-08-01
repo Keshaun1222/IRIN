@@ -10,5 +10,5 @@ $mail->SMTPAuth = true;
 $mail->Username = $username;
 $mail->Password = $password;
 $mail->SMTPSecure = 'tls';
-$mail->Port = 587;
+$mail->Port = 2525;
 $mail->isHTML(true);
