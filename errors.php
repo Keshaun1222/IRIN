@@ -6,7 +6,7 @@ $do = param('do', 'none');
 echo '<h1>Error Logger</h1>';
 
 if ($action == 'none') {
-    $types = array('Database Exception', 'IRIN Exception', 'Fatal Error');
+    $types = array('Database Exception', 'IRIN Exception', 'Fatal Error', 'Mail Exception');
 
     for ($i = 0; $i < count($types); $i++) {
         ?>
