@@ -7,10 +7,21 @@ class Senator {
     private $member;
     private $type;
     private $committee;
+    private $active;
+
+    private static $committees = array();
 
     // Type: {0 => Elected, 1 => Appointed}
 
     public function __construct($id) {
+        global $mysqli;
+    }
+
+    public static function registerSenator($name, $location, $user) {
+        global $mysqli;
+    }
+
+    public static function approveSenator($id, $type, $committee) {
         global $mysqli;
     }
 
@@ -36,5 +47,9 @@ class Senator {
 
     public function getCommittee() {
         return $this->committee;
+    }
+
+    public function isActive() {
+        return $this->active;
     }
 }

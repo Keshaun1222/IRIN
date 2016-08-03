@@ -293,7 +293,16 @@ if ($action == 'none') {
 
             $message = 'A new account has been created with your email address.<br /><br /><b>Login ID:</b> ' . $login . '<br /><b>New Password:</b> ' . $password . '<br /><b>Name:</b> ' . $name;
 
-            mail($to, $subject, $message, $headers);
+            //mail($to, $subject, $message, $headers);
+
+            $mail->setFrom('DoNotReply@eotir.com', 'IRIN');
+            $mail->addAddress($to);
+            $mail->Subject = $subject;
+            $mail->Body = $message;
+
+            if (!$mail->send()) {
+                throw new MailException($mail->ErrorInfo);
+            }
 
             echo 'true';
             Event::addEvent($name . '\'s account has been created.', $_SESSION['user'], 1);

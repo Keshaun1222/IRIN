@@ -122,6 +122,40 @@ INSERT INTO `awardslist` (`id`, `name`, `abbrev`, `multi`, `max`) VALUES
 
 INSERT INTO pages VALUES (14, 'Awards Tracker', 'Awards Tracker', 'awards', 'Awards Tracker', 0, 0, 0);
 
+CREATE TABLE IF NOT EXISTS `events` (
+  `id` int(100) NOT NULL AUTO_INCREMENT,
+  `message` text NOT NULL,
+  `user` int(3) NOT NULL,
+  `type` int(1) NOT NULL,
+  `time` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+INSERT INTO pages VALUES (22, 'Event Logging', 'Event Logging', 'events', 'Event Logging', 0, 3, 31);
+
+CREATE TABLE IF NOT EXISTS `senators` (
+  `id` int(3) NOT NULL AUTO_INCREMENT,
+  `name` varchar(150) NOT NULL,
+  `location` varchar(100) NOT NULL,
+  `member` int(3) NOT NULL,
+  `type` int(1) NOT NULL,
+  `committee` int(2) NOT NULL,
+  `active` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+CREATE TABLE IF NOT EXISTS `oaths` (
+  `id` int(5) NOT NULL AUTO_INCREMENT,
+  `user` int(11) NOT NULL,
+  `division` int(11) NOT NULL,
+  `administered` int(11) NOT NULL,
+  `witnesses` varchar(150) NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

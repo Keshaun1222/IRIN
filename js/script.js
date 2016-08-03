@@ -361,23 +361,6 @@ function editAdmin(id) {
     });
 }
 
-function editAdmin(id) {
-    var dataString = $("#form").serialize();
-
-    $.ajax({
-        type: "POST",
-        url: "admin.php?action=edit&do=edit&id=" + id,
-        data: dataString,
-        success: function(html) {
-            if (html == 'true') {
-                load('admin', 'none', 'none', {});
-            } else {
-                $("#error").html(html).show();
-            }
-        }
-    });
-}
-
 function editAwards(id) {
     var dataString = $("#form").serialize();
 
