@@ -252,9 +252,21 @@ if ($action == 'none') {
         foreach($users as $user) {
             if (!in_array($user, $document->getAssignees())) {
                 $to = $user->getEmail();
-                mail($to, $subject, $message, $headers);
+                //mail($to, $subject, $message, $headers);
+                $mail->setFrom('irin@eotir.com', 'IR Information Network');
+                $mail->addAddress($to);
+                $mail->Subject = $subject;
+                $mail->Body = $message;
+
+                if (!$mail->send()) {
+                    throw new MailException($mail->ErrorInfo);
+                }
+
+                Event::addEvent($user->getName() . ' has been assigned to document ' . $document->getPrefix()->getPrefixAbbrev() . $document->getID() . '.', $_SESSION['user'], 2);
             }
         }
+
+        Event::addEvent('Document ' . $document->getPrefix()->getPrefixAbbrev() . $document->getID() . ' has been modified.', $_SESSION['user'], 2);
 
         $document->update($subject, $status, $body, $clearance, $prefix, $assignees);
         echo $document->getID();
@@ -381,9 +393,21 @@ if ($action == 'none') {
         foreach($users as $user) {
             if (!in_array($user, $document->getAssignees())) {
                 $to = $user->getEmail();
-                mail($to, $subject, $message, $headers);
+                //mail($to, $subject, $message, $headers);
+                $mail->setFrom('irin@eotir.com', 'IR Information Network');
+                $mail->addAddress($to);
+                $mail->Subject = $subject;
+                $mail->Body = $message;
+
+                if (!$mail->send()) {
+                    throw new MailException($mail->ErrorInfo);
+                }
+
+                Event::addEvent($user->getName() . ' has been assigned to document ' . $document->getPrefix()->getPrefixAbbrev() . $document->getID() . '.', $_SESSION['user'], 2);
             }
         }
+
+        Event::addEvent('Document ' . $document->getPrefix()->getPrefixAbbrev() . $document->getID() . ' has been created.', $_SESSION['user'], 1);
 
         echo $document->getID();
     }
@@ -395,6 +419,7 @@ if ($action == 'none') {
     } else if ($do == 'delete') {
         $document = new Document($_GET['id']);
         $document->delete();
+        Event::addEvent('Document ' . $document->getPrefix()->getPrefixAbbrev() . $document->getID() . ' has been deleted.', $_SESSION['user'], 3);
         ?>
         <script>
             load('documents', 'view', 'none', {});

@@ -18,7 +18,15 @@ if ($user) {
 
     $message = 'You have requested a new password.<br /><br /><b>Login ID:</b> ' . $user->getUsername() . '<br /><b>New Password:</b> ' . $pass;
 
-    mail($to, $subject, $message, $headers);
+    //mail($to, $subject, $message, $headers);
+    $mail->setFrom('DoNotReply@eotir.com', 'IRIN');
+    $mail->addAddress($to);
+    $mail->Subject = $subject;
+    $mail->Body = $message;
+
+    if (!$mail->send()) {
+        throw new MailException($mail->ErrorInfo);
+    }
 
     echo 'true';
 } else {

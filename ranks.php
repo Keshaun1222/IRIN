@@ -85,6 +85,7 @@ if ($action == 'none') {
     } else if ($do == 'edit') {
         extract($_POST);
         $rank->update($name, $division, $abbrev, $paygrade);
+        Event::addEvent('Rank ' . $ranks->getName() . ' has been modified.', $_SESSION['user'], 2);
     }
 } else if ($action == 'create') {
     if ($do == 'none') {
@@ -129,6 +130,7 @@ if ($action == 'none') {
     } else if ($do == 'create') {
         extract($_POST);
         Rank::create($name, $division, $abbrev, $paygrade);
+        Event::addEvent('Rank ' . $name . ' has been created.', $_SESSION['user'], 1);
     }
 } else if ($action == 'delete') {
     if ($do == 'none') {
@@ -138,6 +140,7 @@ if ($action == 'none') {
     } else if ($do == 'delete') {
         $ranks = new Rank($_GET['id']);
         $ranks->delete();
+        Event::addEvent('Rank ' . $ranks->getName() . ' has been deleted.', $_SESSION['user'], 3);
         ?>
         <script>
             load('ranks', 'none', 'none', {});

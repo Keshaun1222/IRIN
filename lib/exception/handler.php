@@ -1,6 +1,7 @@
 <?php
     function exception_handler(Exception $exception) {
         global $mysqli;
+        global $mail;
 
         $type = get_class($exception);
         $date = date("Y-m-d H:i:s");
@@ -35,7 +36,18 @@
             $message .= 'Please fix this error ASAP.';
         }
 
-        mail($to, $subject, $message, $headers);
+        if ($t != 4) {
+            $mail->setFrom('errors@eotir.com', 'Error Handler');
+            $mail->addAddress($to);
+            $mail->Subject = $subject;
+            $mail->Body = $message;
+
+            if (!$mail->send()) {
+                throw new MailException($mail->ErrorInfo);
+            }
+        } else {
+            mail($to, $subject, $message, $headers);
+        }
         $mess = $mysqli->real_escape_string($exception->getSendMessage());
         $mysqli->query("INSERT INTO errors VALUES (NULL, '$mess', $t, '$date')");
         ?>
@@ -80,6 +92,7 @@
 
 function fatal_handler() {
     global $mysqli;
+    global $mail;
 
     $errfile = "unknown file";
     $errstr  = "shutdown";
@@ -145,9 +158,18 @@ function fatal_handler() {
         $to = "keshaun@eotir.com";
         $subject = "Fatal Error";
         $headers = "MIME-Version: 1.0" . "\r\n";
-        $headers .= "Content-type: text/html; charset=iso-8859-1" . "\r\n";
-        $headers .= "From: Error Handler <errors@eotir.com>" . "\r\n";
-        mail($to, $subject, $content, $headers);
+        /*$headers .= "Content-type: text/html; charset=iso-8859-1" . "\r\n";
+        $headers .= "From: Error Handler <errors@eotir.com>" . "\r\n";*/
+
+        //mail($to, $subject, $content, $headers);
+        $mail->setFrom('errors@eotir.com', 'Error Handler');
+        $mail->addAddress($to);
+        $mail->Subject = $subject;
+        $mail->Body = $content;
+
+        if (!$mail->send()) {
+            throw new MailException($mail->ErrorInfo);
+        }
 
         //error_mail(format_error($errno, $errstr, $errfile, $errline));
     }
@@ -167,5 +189,5 @@ function error_mail($content) {
     $headers = "MIME-Version: 1.0" . "\r\n";
     $headers .= "Content-type: text/html; charset=iso-8859-1" . "\r\n";
     $headers .= "From: Error Handler <errors@eotir.com>" . "\r\n";
-    mail($to, $subject, $content, $headers);
+    //mail($to, $subject, $content, $headers);
 }
