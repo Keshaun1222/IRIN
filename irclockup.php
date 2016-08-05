@@ -82,10 +82,18 @@ if ($action == 'none') {
     } else if ($do == 'add') {
         extract($_POST);
         Year::create($year, $era);
+        if ($era == 1) {
+            $dis = $year . ' UFY';
+        } else {
+            $dis = $year . ' IRY';
+        }
+        Event::addEvent('Year ' . $dis . ' has been added.', $_SESSION['user'], 1);
     }
 } else if ($action == 'current') {
     $year = new Year($_GET['id']);
     $year->makeCurrent();
+
+    Event::addEvent('Year ' . $year->getFullYear() . ' is now the current year.', $_SESSION['user'], 2);
     ?>
     <script>
         load('irclockup', 'none', 'none');

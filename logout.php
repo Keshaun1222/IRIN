@@ -23,6 +23,11 @@ if ($action == 'none') {
         <?php
     }
 } else if ($action == 'logout') {
+    if (isset($_SESSION['user'])) {
+        Event::addEvent($_SESSION['user']->getName() . ' has logged out.', $_SESSION['user'], 4);
+    } else {
+        Event::addEvent('A user\'s session has timed out.', new User(0), 4);
+    }
     session_destroy();
     setcookie('user', null, time() - 60*60);
     ?>
