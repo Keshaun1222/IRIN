@@ -129,6 +129,7 @@ if (!$_SESSION['user']->isDivCommand() && !$_SESSION['user']->getAdmin() && !$_S
         } else if ($do == 'edit') {
             extract($_POST);
             $user->changeMerits($merits);
+            Event::addEvent($user->getName() . '\'s merits have been modified.', $_SESSION['user'], 2);
         }
     }
 }	

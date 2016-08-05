@@ -517,5 +517,7 @@ if ($action == 'none') {
         $multi = rtrim($multi, ',');
 
         Award::updateUserAwards($user, $awardlist, $multi);
+
+        Event::addEvent($user->getName() . '\'s awards have been modified.', $_SESSION['user'], 2);
     }
 }

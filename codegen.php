@@ -54,5 +54,7 @@ if ($action == 'none') {
 
     CodeGen::add($code, $_SESSION['user'], $_POST['purpose']);
 
+    Event::addEvent($_SESSION['user']->getName() . ' has generated an approval code.', $_SESSION['user'], 1);
+
     echo $code;
 }
