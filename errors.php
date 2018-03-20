@@ -18,7 +18,7 @@ if ($action == 'none') {
                 <th>Time</th>
             </tr>
         <?php
-        $errors = Error::getErrors($i + 1);
+        $errors = Errors::getErrors($i + 1);
         foreach ($errors as $error) {
             ?>
             <tr>
@@ -33,7 +33,7 @@ if ($action == 'none') {
         <?php
     }
 } else if ($action == 'view') {
-    $error = new Error(param('id'));
+    $error = new Errors(param('id'));
     ?>
     <h3>Error #<?php echo $error->getID() ?></h3>
     <table>

@@ -1,5 +1,5 @@
 <?php
-    class Error {
+    class Errors {
         private $id;
         private $message;
         private $type;
@@ -33,7 +33,7 @@
 
         /**
          * @param int|false $type
-         * @return Error[]
+         * @return Errors[]
          */
         public static function getErrors($type = false) {
             global $mysqli;

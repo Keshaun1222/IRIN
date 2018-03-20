@@ -23,7 +23,7 @@ require_once ROOT . '/lib/division.class.php';
 require_once ROOT . '/lib/document.class.php';
 require_once ROOT . '/lib/documentprefix.class.php';
 require_once ROOT . '/lib/documentstatus.class.php';
-require_once ROOT . '/lib/error.class.php';
+require_once ROOT . '/lib/errors.class.php';
 require_once ROOT . '/lib/event.class.php';
 require_once ROOT . '/lib/page.class.php';
 require_once ROOT . '/lib/rank.class.php';
