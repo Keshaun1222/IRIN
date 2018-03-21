@@ -109,7 +109,7 @@ function addAssignee() {
     var data = '';
     var newVal = '';
 
-    if (assignees == '') {
+    if (assignees == '' || assignees == '0') {
         data = "assign=" + assign;
         newVal = assign;
     } else {
