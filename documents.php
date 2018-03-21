@@ -266,7 +266,7 @@ if ($action == 'none') {
             }
         }
 
-        Event::addEvent('Document ' . $document->getPrefix()->getPrefixAbbrev() . $document->getID() . ' has been modified.', $_SESSION['user'], 2);
+        Event::addEvent('Document <b>' . $document->getPrefix()->getPrefixAbbrev() . $document->getID() . '</b> has been modified.', $_SESSION['user'], 2);
 
         $document->update($subject, $status, $body, $clearance, $prefix, $assignees);
         echo $document->getID();
@@ -407,7 +407,7 @@ if ($action == 'none') {
             }
         }
 
-        Event::addEvent('Document ' . $document->getPrefix()->getPrefixAbbrev() . $document->getID() . ' has been created.', $_SESSION['user'], 1);
+        Event::addEvent('Document <b>' . $document->getPrefix()->getPrefixAbbrev() . $document->getID() . '</b> has been created.', $_SESSION['user'], 1);
 
         echo $document->getID();
     }
@@ -419,7 +419,7 @@ if ($action == 'none') {
     } else if ($do == 'delete') {
         $document = new Document($_GET['id']);
         $document->delete();
-        Event::addEvent('Document ' . $document->getPrefix()->getPrefixAbbrev() . $document->getID() . ' has been deleted.', $_SESSION['user'], 3);
+        Event::addEvent('Document <b>' . $document->getPrefix()->getPrefixAbbrev() . $document->getID() . '</b> has been deleted.', $_SESSION['user'], 3);
         ?>
         <script>
             load('documents', 'view', 'none', {});

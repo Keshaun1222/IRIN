@@ -34,7 +34,7 @@ if ($action == 'none') {
 } else if ($action == 'view') {
     $event = new Event(param('id'));
     ?>
-    <h3>Error #<?php echo $event->getID() ?></h3>
+    <h3>Events #<?php echo $event->getID() ?></h3>
     <table>
         <tr>
             <th>Message:&nbsp;&nbsp;</th>

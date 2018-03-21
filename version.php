@@ -80,13 +80,13 @@ if ($action == 'none') {
                 break;
         }
         Version::create($version);
-        Event::addEvent('Version ' . $version . ' has been added.', $_SESSION['user'], 1);
+        Event::addEvent('Version <b>' . $version . '</b> has been added.', $_SESSION['user'], 1);
     }
 } else if ($action == 'current') {
     $version = new Version($_GET['id']);
     $version->makeCurrent();
 
-    Event::addEvent('Version ' . $version->getVersion() . ' is now the current version.', $_SESSION['user'], 2);
+    Event::addEvent('Version <b>' . $version->getVersion() . '</b> is now the current version.', $_SESSION['user'], 2);
     ?>
     <script>
         load('version', 'none', 'none');

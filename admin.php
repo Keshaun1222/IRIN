@@ -131,6 +131,7 @@ if ($action == 'none') {
                 array_unshift($teams, $primary);
             }
             Admin::create($user, $rank, $teams);
+            Event::addEvent($user->getName() . ' has been given admin status.', $_SESSION['user'], 1);
             echo 'true';
         }
     }
@@ -242,6 +243,7 @@ if ($action == 'none') {
             $user->getAdmin()->update($rank, $teams);
             echo 'true';
         }
+        Event::addEvent($user->getName() . '\'s admin status has been modified.', $_SESSION['user'], 2);
     }
 } else if ($action == 'remove') {
     if ($do == 'none') {
@@ -251,6 +253,7 @@ if ($action == 'none') {
     } else if ($do == 'remove') {
         $user = new User($_GET['id']);
         $user->getAdmin()->remove();
+        Event::addEvent($name . '\'s admin status has been revoked.', $_SESSION['user'], 3);
         ?>
         <script>
             load('admin', 'none', 'none', {});

@@ -17,6 +17,7 @@ if ($action == 'none') {
             </tr>
         </table>
     </form>
+    <br />
     <!--<h4 id="code"></h4>-->
     <table class="table table-hover">
         <tr>
@@ -54,7 +55,7 @@ if ($action == 'none') {
 
     CodeGen::add($code, $_SESSION['user'], $_POST['purpose']);
 
-    Event::addEvent($_SESSION['user']->getName() . ' has generated an approval code.', $_SESSION['user'], 1);
+    Event::addEvent($_SESSION['user']->getName() . ' has generated approval code <b>' . $code . '</b>.', $_SESSION['user'], 1);
 
     echo $code;
 }

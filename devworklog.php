@@ -69,9 +69,12 @@ if ($action == 'none') {
     } else if ($do == 'add') {
         if (isset($_POST['minorPCR']) && $_POST['minorPCR'] != '') {
             DevWorklog::create($_POST['text'], $_POST['pcrNum'], $_POST['minorPCR']);
+            $num = $_POST['pcrNum'] . '.' . $_POST['minorPCR'];
         } else {
             DevWorklog::create($_POST['text'], $_POST['pcrNum']);
+            $num = $_POST['pcrNum'];
         }
+        Event::addEvent('PCR <b>' . $num . '</b> has been created.', $_SESSION['user'], 1);
     }
 } else if ($action == 'edit') {
     $worklog = new DevWorklog(param('id'));
@@ -106,9 +109,12 @@ if ($action == 'none') {
     } else if ($do == 'edit') {
         if (isset($_POST['minorPCR']) && $_POST['minorPCR'] != '') {
             $worklog->update($_POST['text'], $_POST['pcrNum'], $_POST['minorPCR']);
+            $num = $_POST['pcrNum'] . '.' . $_POST['minorPCR'];
         } else {
             $worklog->update($_POST['text'], $_POST['pcrNum']);
+            $num = $_POST['pcrNum'];
         }
+        Event::addEvent('PCR <b>' . $num . '</b> has been modified.', $_SESSION['user'], 2);
     }
 } else if ($action == 'assign') {
     $worklog = new DevWorklog($_GET['id']);
@@ -133,11 +139,14 @@ if ($action == 'none') {
         </div>
         <?php
     } else if ($do == 'assign') {
-        $worklog->assign(new User($_POST['assigned']));
+        $assigned = new User($_POST['assigned']);
+        $worklog->assign($assigned);
+        Event::addEvent('PCR <b>' . $worklog->getPCR() . '</b> has been assigned to ' . $assigned->getName() . '.', $_SESSION['user'], 2);
     }
 } else if ($action == 'completed') {
     $worklog = new DevWorklog($_GET['id']);
     $worklog->complete();
+    Event::addEvent('PCR <b>' . $worklog->getPCR() . '</b> has been completed.', $_SESSION['user'], 2);
     ?>
     <script>
         load('devworklog', 'none', 'none', {});
@@ -154,6 +163,7 @@ if ($action == 'none') {
         <?php
     } else if ($do == 'cancel') {
         $worklog->cancel();
+        Event::addEvent('PCR <b>' . $worklog->getPCR() . '</b> has been cancelled.', $_SESSION['user'], 3);
         ?>
         <script>
             load('devworklog', 'none', 'none', {});
