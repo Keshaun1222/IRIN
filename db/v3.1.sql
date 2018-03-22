@@ -138,8 +138,8 @@ CREATE TABLE IF NOT EXISTS `senators` (
   `name` varchar(150) NOT NULL,
   `location` varchar(100) NOT NULL,
   `member` int(3) NOT NULL,
-  `type` int(1) NOT NULL,
-  `committee` int(2) NOT NULL,
+  `type` int(1) NULL,
+  `committee` int(2) NULL,
   `active` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;

@@ -244,6 +244,8 @@ if ($action == 'none') {
             $users[] = new User($ids[$i]);
         }
 
+        $document->update($subject, $status, $body, $clearance, $prefix, $assignees);
+
         $message = 'You have been assigned to document <b>' . $document->getPrefix()->getPrefixAbbrev() . $document->getID() . '</b>';
         $subject = 'Document Assignment';
         $headers = "MIME-Version: 1.0" . "\r\n";
@@ -268,7 +270,6 @@ if ($action == 'none') {
 
         Event::addEvent('Document <b>' . $document->getPrefix()->getPrefixAbbrev() . $document->getID() . '</b> has been modified.', $_SESSION['user'], 2);
 
-        $document->update($subject, $status, $body, $clearance, $prefix, $assignees);
         echo $document->getID();
     }
 } else if ($action == 'search') {
