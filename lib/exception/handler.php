@@ -1,12 +1,13 @@
 <?php
-    function exception_handler(Exception $exception) {
+    function exception_handler(Throwable $exception) {
         global $mysqli;
+        global $dev;
         global $mail;
 
         $type = get_class($exception);
         $date = date("Y-m-d H:i:s");
         $tz = date("(T)");
-        $to = "keshaun@eotir.com";
+        $to = ($dev ? "keshaun@eotir.com" : 'operations@eotir.com');
         $headers = "MIME-Version: 1.0" . "\r\n";
         $headers .= "Content-type: text/html; charset=iso-8859-1" . "\r\n";
         $headers .= "From: Error Handler <errors@eotir.com>" . "\r\n";
@@ -20,18 +21,25 @@
             $message .= '<b>Time:</b> ' . $date . ' ' . $tz . '<br />';
             $message .= 'Please fix this error ASAP.';
         } else if ($type == 'IRINException') {
-            echo '<span style="color:orange">' . $exception->getMessage() . '</span><br />';
+            echo '<span style="color:orange">' . $exception->getSendMessage() . '</span><br />';
             $t = 2;
             $subject = 'IRIN Error';
             $message = 'A user has run into an error.<br /><br />';
             $message .= '<b>Displayed Message:</b> ' . $exception->getSendMessage() . '<br />';
             $message .= '<b>Time:</b> ' . $date . ' ' . $tz . '<br />';
             $message .= 'Notify the Assistant and Lead Administrators immediately.';
-        } else {
+        } else if ($type == 'MailException') {
             $t = 4;
             $subject = 'Mail Error';
             $message = 'There was a problem with the sending mail via SMTP.<br /><br />';
             $message .= '<b>Displayed Message:</b> ' . $exception->getSendMessage() . '<br />';
+            $message .= '<b>Time:</b> ' . $date . ' ' . $tz . '<br />';
+            $message .= 'Please fix this error ASAP.';
+        } else {
+            $t = 5;
+            $subject = 'PHP Error';
+            $message = 'There was a PHP error.<br /><br />';
+            $message .= '<b>Displayed Message:</b>' . $exception->getMessage() . '<br />';
             $message .= '<b>Time:</b> ' . $date . ' ' . $tz . '<br />';
             $message .= 'Please fix this error ASAP.';
         }
@@ -48,10 +56,11 @@
         } else {
             mail($to, $subject, $message, $headers);
         }
-        $mess = $mysqli->real_escape_string($exception->getSendMessage());
+        $thing = ($t != 5 ? $exception->getSendMessage() : $exception->getMessage());
+        $mess = $mysqli->real_escape_string($thing);
         $mysqli->query("INSERT INTO errors VALUES (NULL, '$mess', $t, '$date')");
         ?>
-        <table>
+        <table class="table table-striped">
             <tr>
                 <th>Class</th>
                 <th>Function</th>

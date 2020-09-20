@@ -24,15 +24,29 @@ class Oath {
             $this->witnesses[] = new User($witness);
         }
 
-        $this->date = date('m/d/Y', strtotime($date));
+        $this->date = date('m/d/Y', strtotime($timestamp));
     }
 
     public static function recordOath($user, $division, $administered, $witnesses = array()) {
         global $mysqli;
+
+        $witnessList = implode(',', $witnesses);
+
+        $insert = $mysqli->query("INSERT INTO oaths VALUE(NULL, $user, $division, $administered, '$witnessList', NULL)");
     }
 
-    public static function getOaths() {
+    public static function getOaths(Division $division = null) {
         global $mysqli;
+
+        $oaths = array();
+
+        $query = $mysqli->query("SELECT * FROM oaths");
+        while($result = $query->fetch_array()) {
+            if (!isset($division) || $division->getDivision() == $result['division'])
+                $oaths[] = new Oath($result['id']);
+        }
+
+        return $oaths;
     }
 
     public function getID() {

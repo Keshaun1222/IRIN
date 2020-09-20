@@ -39,21 +39,25 @@ class Senator {
         }
     }
 
-    public static function approveSenator($id, $type, $committee) {
-        global $mysqli;
-
-        $update = $mysqli->query("UPDATE senators SET type = $type, committee = $committee, active = 1 WHERE id = $id");
-        if (!$update) {
-            throw new DBException('Could not approve new senator.', $mysqli->error);
-        }
-    }
-
     public static function getPendingSenators() {
         global $mysqli;
 
         $senators = array();
 
         $query = $mysqli->query("SELECT * FROM senators WHERE active = 0 AND type = NULL AND committee = NULL");
+        while($result = $query->fetch_array()) {
+            $senators[] = new Senator($result['id']);
+        }
+
+        return $senators;
+    }
+
+    public static function getInactiveSenators() {
+        global $mysqli;
+
+        $senators = array();
+
+        $query = $mysqli->query("SELECT * FROM senators WHERE active = 0 AND type <> NULL AND committee <> NULL");
         while($result = $query->fetch_array()) {
             $senators[] = new Senator($result['id']);
         }
@@ -100,5 +104,51 @@ class Senator {
 
     public function isActive() {
         return ($this->active == 1 ? true : false);
+    }
+
+    public function setType($type) {
+        global $mysqli;
+
+        $update = $mysqli->query("UPDATE senators SET type = $type WHERE id = $this->id");
+
+        if (!$update) {
+            throw new DBException('Could not update senator.', $mysqli->error);
+        }
+    }
+
+    public function setCommittee($committee) {
+        global $mysqli;
+
+        $update = $mysqli->query("UPDATE senators SET committee = $committee WHERE id = $this->id");
+
+        if (!$update) {
+            throw new DBException('Could not update senator.', $mysqli->error);
+        }
+    }
+
+    public function setActive() {
+        global $mysqli;
+
+        $update = $mysqli->query("UPDATE senators SET active = 1 WHERE id = $this->id");
+
+        if (!$update) {
+            throw new DBException('Could not update senator.', $mysqli->error);
+        }
+    }
+
+    public function setInactive() {
+        global $mysqli;
+
+        $update = $mysqli->query("UPDATE senators SET active = 0 WHERE id = $this->id");
+
+        if (!$update) {
+            throw new DBException('Could not update senator.', $mysqli->error);
+        }
+    }
+
+    public function approve($type, $committee) {
+        $this->setActive();
+        $this->setType($type);
+        $this->setCommittee($committee);
     }
 }
