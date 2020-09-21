@@ -20,5 +20,5 @@ before_install:
   - mysql -e 'CREATE DATABASE samp;'
   - mysql -u root samp < db/initial.sql
   - mysql -u root samp < db/v3.1.sql
-  - mysql -u root -e 'create user samp identified by "samp"; grant all on samp.* to travis_pass;'
+  - mysql -u root -e 'create user samp identified by "samp"; grant all on samp.* to samp;'
 script: phpunit test/awards.test.php
