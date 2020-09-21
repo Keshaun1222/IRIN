@@ -1,6 +1,6 @@
 <?php
 /* MySQL Connection Variables */
-$host = 'samp';
+$host = 'localhost';
 $user = 'samp';
 $pass = 'samp';
 $base = 'samp';
