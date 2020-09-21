@@ -12,6 +12,9 @@ os: linux
 dist: xenial
 services:
   - mysql
+mysql:
+  username: root
+  encoding: utf8
 before_install:
   - cp lib/config.samp.php lib/config.php
   - mysql -e 'CREATE DATABASE samp;'
