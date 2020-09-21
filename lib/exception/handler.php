@@ -1,4 +1,5 @@
 <?php
+include '../path.php';
     function exception_handler(Throwable $exception) {
         global $mysqli;
         global $dev;
