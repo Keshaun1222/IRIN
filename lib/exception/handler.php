@@ -1,5 +1,6 @@
 <?php
-include '../path.php';
+define('ROOT', realpath(__DIR__ . '/../../'));
+require_once ROOT . '/lib/path.php';
     function exception_handler(Throwable $exception) {
         global $mysqli;
         global $dev;
