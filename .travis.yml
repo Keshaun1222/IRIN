@@ -13,9 +13,9 @@ dist: xenial
 services:
   - mysql
 before_install:
-  - cp ~/lib/config.samp.php ~/lib/config.php
+  - cp lib/config.samp.php lib/config.php
   - mysql -e 'CREATE DATABASE samp;'
-  - mysql -u root -p samp < ~/db/initial.sql
-  - mysql -u root -p samp < ~/db/v3.1.sql
+  - mysql -u root -p samp < db/initial.sql
+  - mysql -u root -p samp < db/v3.1.sql
   - mysql -u root -e "create user samp identified by 'samp'; grant all on samp.* to travis_pass;"
 script: phpunit test/awards.test.php
