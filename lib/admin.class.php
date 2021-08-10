@@ -152,6 +152,11 @@
                 throw new DBException('Could not remove admin.', $mysqli->error);
             }
 
+            $update = $mysqli->query("UPDATE users SET admin = 0 WHERE id = {$this->id}");
+            if (!$update) {
+                throw new DBException('Could not remove admin.', $mysqli->error);
+            }
+
             $delete = $mysqli->query("DELETE FROM admin WHERE userid = {$this->id}");
             if (!$delete) {
                 throw new DBException('Could not update admin.', $mysqli->error);

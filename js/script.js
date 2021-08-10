@@ -382,6 +382,38 @@ function disableCheckBox() {
         $(".others[value=" + value + "]").attr("disabled", true);
 }
 
+function editSenator() {
+    var id = $("#id").val();
+    var name = $("#name").val();
+    var location = $("#location").val();
+    var type = $("#type").val();
+    $.ajax({
+        type: "POST",
+        url: "senateregistry.php?action=edit&do=edit&id=" + id,
+        data: "name=" + name + "&location=" + location + "&type=" + type,
+        success: function() {
+            load('senateregistry', 'none', 'none', {});
+        }, beforeSend: function () {
+            $("#loading").html("Loading...").show();
+        }
+    });
+}
+
+function approveSenator() {
+    var id = $("#id").val();
+    var committee = $("#committee").val();
+    $.ajax({
+        type: "POST",
+        url: "senateregistry.php?action=edit&do=edit&id=" + id,
+        data: "committee=" + committee,
+        success: function() {
+            load('senateregistry', 'none', 'none', {});
+        }, beforeSend: function () {
+            $("#loading").html("Loading...").show();
+        }
+    });
+}
+
 $(document).ready(function() {
     var page = $.cookie('page');
     if (page == null) {

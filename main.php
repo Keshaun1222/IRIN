@@ -22,13 +22,12 @@ $pages = Page::getPages($_SESSION['user']);
         <input type="hidden" id="lastactive" name="lastactive" value="<?php if (isset($_SESSION['lastactive'])) echo $_SESSION['lastactive'] ?>" />
         <h1>Imperial Republic Information Network</h1>
         <div class="row">
-            <div id="sidebar" class="col-md-3">
+            <div id="sidebar" class="col-md-2">
                 <div id="top"></div>
                 <div id="pages">
                     <div class="panel-group" id="menu" role="tablist" aria-multiselectable="true">
                         <?php
                         foreach ($pages as $page) {
-                            //echo '<a href="#" alt="' . $page->getDesc() . '" onclick="">' . $page->getName() . '</a><br />';
                             if ($page->getPage() == 'home') {
                                 ?>
                                 <div class="panel panel-default">
@@ -81,7 +80,6 @@ $pages = Page::getPages($_SESSION['user']);
                             </div>
                         </div>
                     </div>
-                    <!--<a href="logout.php" alt="Logout">Logout</a>-->
                 </div>
                 <div id="blank"></div>
                 <div id="session">
@@ -89,9 +87,8 @@ $pages = Page::getPages($_SESSION['user']);
                     <b>Rank: </b><?php echo $_SESSION['user']->getRank()->getName() ?><br />
                     <b>Clearance: </b><?php echo $_SESSION['user']->getClearance()->getClearanceName() ?><br />
                 </div>
-                <!--<div id="bottom"></div>-->
             </div>
-            <div id="main" class="col-md-9">
+            <div id="main" class="col-md-10">
 
             </div>
         </div>
